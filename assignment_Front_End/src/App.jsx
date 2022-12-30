@@ -1,10 +1,11 @@
 import { useState } from "react";
 import "./App.css";
+import AddUserForm from "./features/AddUserForm";
 import UsersList from "./features/users/UsersList";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <UsersList />
     </div>
   );
