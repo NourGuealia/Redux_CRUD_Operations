@@ -9,21 +9,22 @@ const initialState = {
 
 // Fetch all users :
 
-var configGetUsers = {
-  method: "get",
-  url: "http://localhost:3000/data",
-  headers: {
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-    "access-control-allow-origin": "*",
-  },
-};
+var configGetUsers = {};
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  const response = await axios(configGetUsers);
+  const response = await axios({
+    method: "get",
+    url: "http://localhost:3000/data",
+    headers: {
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
+      "access-control-allow-origin": "*",
+    },
+  });
 
   return response.data;
 });
+
 // User Slice
 const userSlice = createSlice({
   name: "users",
