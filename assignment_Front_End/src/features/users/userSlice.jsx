@@ -46,6 +46,16 @@ const userSlice = createSlice({
         };
       },
     },
+    userUpdated(state, action) {
+      const { id, firstName, lastName, email, gender } = action.payload;
+      const existingUser = state.users.find((user) => user.id == id);
+      if (existingUser) {
+        existingUser.first_name = firstName;
+        existingUser.last_name = lastName;
+        existingUser.email = email;
+        existingUser.gender = gender;
+      }
+    },
   },
   extraReducers(builder) {
     builder
@@ -65,8 +75,8 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 
-export const { userAdded } = userSlice.actions;
+export const { userAdded, userUpdated } = userSlice.actions;
 export const selectAllUsers = (state) => state.users.users;
 
-export const selectUsersById = (state, userId) =>
-  state.users.users.find((user) => user.id === userId);
+export const selectUserById = (state, userId) =>
+  state.users.users.find((user) => user.id == userId);
