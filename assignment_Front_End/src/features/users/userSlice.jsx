@@ -29,7 +29,24 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
 const userSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    userAdded: {
+      reducer(state, action) {
+        state.users.push(action.payload);
+      },
+      prepare(first_name, last_name, email, gender) {
+        return {
+          payload: {
+            id: nanoid(),
+            first_name,
+            last_name,
+            email,
+            gender,
+          },
+        };
+      },
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.pending, (state, action) => {
@@ -48,6 +65,7 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 
+export const { userAdded } = userSlice.actions;
 export const selectAllUsers = (state) => state.users.users;
 
 export const selectUsersById = (state, userId) =>
