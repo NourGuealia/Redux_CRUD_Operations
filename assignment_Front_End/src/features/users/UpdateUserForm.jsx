@@ -26,7 +26,6 @@ const UpdateUserForm = () => {
   const onUpdate = (e) => {
     e.preventDefault();
     if (firstName && lastName && email && gender) {
-      console.log(firstName, lastName);
       dispatch(userUpdated({ id: userId, firstName, lastName, email, gender }));
       setFirstName("");
       setLastName("");
