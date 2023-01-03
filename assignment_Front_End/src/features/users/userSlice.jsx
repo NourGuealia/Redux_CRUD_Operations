@@ -9,8 +9,6 @@ const initialState = {
 
 // Fetch all users :
 
-var configGetUsers = {};
-
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await axios({
     method: "get",
@@ -46,7 +44,7 @@ const userSlice = createSlice({
         };
       },
     },
-    userUpdated(state, action) {
+    userUpdated: (state, action) => {
       const { id, firstName, lastName, email, gender } = action.payload;
       const existingUser = state.users.find((user) => user.id == id);
       if (existingUser) {
@@ -55,6 +53,11 @@ const userSlice = createSlice({
         existingUser.email = email;
         existingUser.gender = gender;
       }
+    },
+    userDeleted: (state, action) => {
+      const userId = action.payload;
+      //console.log(userId);
+      state.users = state.users.filter((user) => user.id !== userId);
     },
   },
   extraReducers(builder) {
@@ -75,7 +78,7 @@ const userSlice = createSlice({
 
 export default userSlice.reducer;
 
-export const { userAdded, userUpdated } = userSlice.actions;
+export const { userAdded, userUpdated, userDeleted } = userSlice.actions;
 export const selectAllUsers = (state) => state.users.users;
 
 export const selectUserById = (state, userId) =>
